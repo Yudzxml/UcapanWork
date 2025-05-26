@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dariku Untuk Mu, Siska!!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: radial-gradient(circle, #fff0f5, #ffe2ff, #ffd6f5);
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+      animation: fadeIn 1s ease-in-out;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .card.active {
+      display: flex;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: #ff4d88;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #444;
+      margin-top: 1rem;
+    }
+
+    .heart {
+      font-size: 2rem;
+      color: red;
+      animation: heartbeat 1s infinite;
+      margin: 1rem 0;
+    }
+
+    .footer {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .next-button {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background-color: #ff4d88;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .next-button:hover {
+      background-color: #e03e77;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    audio {
+      display: none;
+    }
+
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ffb3d1;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .album-item {
+      position: relative;
+      border: 6px solid white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      cursor: zoom-in;
+    }
+
+    .album-item img {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+    }
+
+    .sticker {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 40px;
+      height: 40px;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+  <div id="album" style="display: none; z-index: 2; position: relative;">
+    <h1 style="color: #ff4d88; font-family: 'Pacifico', cursive; margin-bottom: 1rem;">ALBUMS</h1>
+    <div class="album-grid">
+      <div class="album-item" onclick="showImageViewer('https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/c88cf715.jpg')">
+        <img src="https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/c88cf715.jpg" />
+      </div>
+      <div class="album-item" onclick="showImageViewer('https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/67a96c1d.jpg')">
+        <img src="https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/67a96c1d.jpg" />
+      </div>
+      <div class="album-item" onclick="showImageViewer('https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/c0cdc6e3.jpg')">
+        <img src="https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/c0cdc6e3.jpg" />
+      </div>
+      <div class="album-item" onclick="showImageViewer('https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/c2c4cbd9.jpg')">
+        <img src="https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/c2c4cbd9.jpg" />
+      </div>
+    </div>
+  </div>
+
+  <div class="particles" id="particles"></div>
+
+  <!-- Kartu -->
+  <div class="card active">
+    <img src="https://i.pinimg.com/originals/9b/61/fb/9b61fbbab2f5cf0da5de81d2ef76ea5e.gif" alt="Cute Bear">
+    <h1>Selamat Ulang Tahun, Sayang!</h1>
+    <p>Aku sangat bersyukur punya kamu. Semoga harimu seindah senyummu dan sepenuh cintaku ke kamu.</p>
+    <div class="heart">♥</div>
+    <button class="next-button" onclick="nextCard()">Lanjut</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.pinimg.com/originals/74/b1/fd/74b1fd6b2260e8e0431539af18e6f694.gif" alt="Kenangan Kita">
+    <h1>Kenangan Kita</h1>
+    <p>Ingat gak waktu kita pertama kali jalan bareng? Dari situ aku tahu, kamu itu rumah buat hatiku.</p>
+    <button class="next-button" onclick="nextCard()">Lanjut</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.pinimg.com/564x/38/dd/c1/38ddc11b8e2431c368629e4051aaa6d9.jpg" alt="Harapanku">
+    <h1>Harapanku</h1>
+    <p>Semoga kamu selalu sehat, bahagia, dan terus bersinar seperti bintang paling terang di langit malamku.</p>
+    <button class="next-button" onclick="nextCard()">Lanjut</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.pinimg.com/originals/86/b7/19/86b71939da0f0fbb544cd76b31e8c8e4.jpg" alt="Kejutan Kecil" style="cursor: pointer;" onclick="showAlbum()">
+    <h1>Kejutan Kecil!</h1>
+    <p>Ada banyak hal yang nggak bisa aku tulis, tapi satu hal pasti: Aku cinta kamu, hari ini dan seterusnya.</p>
+    <div class="heart">♥</div>
+    <div class="footer">TEKAN KUENYA!!</div>
+  </div>
+
+  <div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:99;" onclick="closeImageViewer()">
+    <img id="full-image" src="" style="max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(255,255,255,0.2);">
+  </div>
+
+  <audio id="audio-player" loop autoplay>
+    <source src="https://raw.githubusercontent.com/Yudzxml/UploaderV2/main/tmp/ac028469.mp3" type="audio/mp3">
+    Browser kamu tidak mendukung pemutar audio.
+  </audio>
+
+  <script>
+    let currentCard = 0;
+    const cards = document.querySelectorAll('.card');
+
+    function nextCard() {
+      if (currentCard < cards.length - 1) {
+        cards[currentCard].classList.remove('active');
+        currentCard++;
+        cards[currentCard].classList.add('active');
+      }
+    }
+
+    const audioPlayer = document.getElementById('audio-player');
+    window.addEventListener('click', () => audioPlayer.play());
+
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${6 + Math.random() * 6}s`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 85%)`;
+      particlesContainer.appendChild(particle);
+    }
+
+    function showAlbum() {
+      document.querySelectorAll('.card').forEach(card => card.style.display = 'none');
+      document.getElementById('album').style.display = 'block';
+    }
+
+    function showImageViewer(src) {
+      const viewer = document.getElementById('image-viewer');
+      const img = document.getElementById('full-image');
+      img.src = src;
+      viewer.style.display = 'flex';
+    }
+
+    function closeImageViewer() {
+      document.getElementById('image-viewer').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
